@@ -4,10 +4,12 @@
             <div v-if="!isRed" style="margin-left: 200px;">
                 THIS IS NOT RED
                 {{ isRed }}
+                {{ kurwa }}
             </div>
             <div v-if="isRed">
                 THIS IS RED
                 {{ isRed }}
+                {{ kurwa }}
             </div>
         </div>
     </body>
@@ -17,12 +19,12 @@
       el: '#app',
       data() {
         return {
-            flag: '{{ isRed }}'
+            kurwa: 'jA PIERDOLE'
         }
       },
       computed: {
         isRed() {
-            return this.flag === 'true'
+            return '{{ isRed }}' === 'true'; //conditional special stuff
         }
       }
 

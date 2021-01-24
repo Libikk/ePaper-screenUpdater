@@ -24,25 +24,17 @@ const postImages = ({ redImage, blackImage }) => {
   nodeHtmlToImage({
     html: htmlFile,
     content: [
-      { isRed: true, name: 'Pierre', output: './imageBlack.png' },
-      { isRed: false, name: 'Paul', output: './imageRed.png' }
+      { isRed: false, output: './blackImage.png' },
+      { isRed: true, output: './redImage.png' }
     ]
   })
   .then((e) => {
     console.log('The image was created successfully!', e)
+    const blackImage = fs.readFileSync('./blackImage.png');
+    const base64BlackImage = new Buffer.from(blackImage).toString('base64');
 
-
-
-    const imageBlack = fs.readFileSync('./imageBlack.png');
-    const base64ImageBlack = new Buffer.from(imageBlack).toString('base64');
-
-    const imageRed = fs.readFileSync('./imageRed.png');
-    const base64ImageRed = new Buffer.from(imageRed).toString('base64');
-    return postImages({ redImage:base64ImageRed, imageBlack: base64ImageBlack })
-  })
-  .then(e => {
-  console.log('🚀 ~ file: generate.js ~ line 29 ~ e', e);
-
-
+    const redImage = fs.readFileSync('./redImage.png');
+    const base64RedImage = new Buffer.from(redImage).toString('base64');
+    return postImages({ redImage: base64RedImage, blackImage: base64BlackImage })
   })
   .catch(console.error)
