@@ -22,3 +22,14 @@ nodeHtmlToImage({
   html
 })
   .then(() => console.log('The image was created successfully!'))
+  .then(e => {
+    const Jimp = require("jimp")
+
+Jimp.read("image.png", function (err, image) {
+  if (err) {
+    console.log(err)
+  } else {
+    image.write("new-image.bmp")
+  }
+})
+  })
