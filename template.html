@@ -1,7 +1,31 @@
 <html>
-    <body style="height: 528px; width: 880px; max-height: 528px; max-width: 880px; color: {{ color }};">
-        Hello world!
-        {{ name }}
+    <body style="height: 528px; width: 880px; max-height: 528px; max-width: 880px;">
+        <div id="app">
+            <div v-if="!isRed" style="margin-left: 200px;">
+                THIS IS NOT RED
+                {{ isRed }}
+            </div>
+            <div v-if="isRed">
+                THIS IS RED
+                {{ isRed }}
+            </div>
+        </div>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+            flag: '{{ isRed }}'
+        }
+      },
+      computed: {
+        isRed() {
+            return this.flag === 'true'
+        }
+      }
 
+    })
+    </script>
 </html>
