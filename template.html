@@ -1,4 +1,7 @@
 <html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    </head>
     <style>
         #app {
             --main-bg-color: brown;
@@ -33,21 +36,16 @@
             </div>
         </div>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
     <script>
     new Vue({
       el: '#app',
       data() {
         return {
-            kurwa: 'jA PIERDOLE',
+            isRed: '{{ isRed }}' === 'true',
             lastUpdated: '{{ lastUpdated }}'
         }
       },
-      computed: {
-        isRed() {
-            return '{{ isRed }}' === 'true'; //conditional special stuff
-        },
-      }
 
     })
 
