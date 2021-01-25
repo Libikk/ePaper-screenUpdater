@@ -1,6 +1,26 @@
 <html>
+    <style>
+        #app {
+            --main-bg-color: brown;
+            --main-bg-color: brown;
+            position: relative;
+        }
+        .last-updated {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .last-updated .last-updated__value {
+            font-weight: bold;
+            color: black;
+            font-size: 16px;
+        }
+    </style>
     <body style="height: 528px; width: 880px; max-height: 528px; max-width: 880px;">
         <div id="app">
+            <div class="last-updated">
+                Last updated: <span class="last-updated__value">{{ lastUpdated }}</span>
+            </div>
             <div v-if="!isRed" style="margin-left: 200px;">
                 THIS IS NOT RED
                 {{ isRed }}
@@ -19,15 +39,18 @@
       el: '#app',
       data() {
         return {
-            kurwa: 'jA PIERDOLE'
+            kurwa: 'jA PIERDOLE',
+            lastUpdated: '{{ lastUpdated }}'
         }
       },
       computed: {
         isRed() {
             return '{{ isRed }}' === 'true'; //conditional special stuff
-        }
+        },
       }
 
     })
+
     </script>
+
 </html>
