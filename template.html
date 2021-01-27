@@ -1,6 +1,7 @@
 <html>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
 
     </head>
@@ -8,12 +9,11 @@
         #app {
             --main-bg-color: brown;
             --main-bg-color: brown;
-            position: relative;
+
         }
         .last-updated {
-            position: absolute;
-            right: 0;
-            top: 0;
+            display: flex;
+            justify-content: flex-end;
         }
         .last-updated .last-updated__value {
             font-weight: bold;
@@ -23,21 +23,27 @@
     </style>
     <body style="height: 528px; width: 880px; max-height: 528px; max-width: 880px;">
         <div id="app">
-
-
             <div class="last-updated">
-                Last updated: <span class="last-updated__value">{{ lastUpdated }}</span>
+                <div>
+                    Last updated: <span class="last-updated__value">{{ lastUpdated }}</span>
+                </div>
             </div>
-            <div v-if="!isRed" style="margin-left: 200px;">
-                THIS IS NOT RED
-                {{ isRed }}
-            </div>
-            <div v-if="isRed">
-                THIS IS RED
-                {{ isRed }}
-            </div>
-            <span v-if="weatherCast" class="weatherCast">
 
+            <div v-if="weatherCast">
+                <div v-for="day in weatherCast.daily" :key="day.dt" style="display: flex; flex-direction: row;">
+                    <span>
+                        {{ getDayName(day.sunrise) }}
+                    </span>
+                    <span style="margin-left: 10px;">
+                        Temp: {{ day.temp.day }}
+                    </span>
+                    <span style="margin-left: 10px;">
+                        Weather: {{ day.weather[0].main }}
+                    </span>
+                </div>
+            </div>
+
+            <span v-if="weatherCast" class="weatherCast">
                 {{ weatherCast }}
             </span>
         </div>
@@ -49,7 +55,7 @@
       data() {
         return {
             isRed: false,
-            lastUpdated: '{{ lastUpdated }}',
+            lastUpdated: new Date().toLocaleString(),
             weatherCast: null,
         }
       },
@@ -57,8 +63,14 @@
           this.getWeatherCast()
       },
       methods: {
+          getDayName(date) {
+            return dateFns.format(new Date(date * 1000), 'dddd')
+          },
+          formatDay(date) {
+            return dateFns.format(new Date(date * 1000), 'DD/MM/YYYY')
+          },
           getWeatherCast() {
-            axios.get('http://api.openweathermap.org/data/2.5/onecall?lat=51.584870&lon=-0.280060&exclude=minutely&appid=811ade084421edfd4e2b8331ba00e291')
+            axios.get('http://api.openweathermap.org/data/2.5/onecall?lat=51.584870&lon=-0.280060&exclude=minutely&appid=811ade084421edfd4e2b8331ba00e291&units=metric')
                 .then(res => {
                     this.weatherCast = res.data;
                 console.log('🚀 ~ file: template.html ~ line 56 ~ getWeatherCast ~ res', res.data);

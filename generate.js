@@ -1,8 +1,6 @@
 const puppeteer = require('puppeteer');
 var fs = require("fs");
 const axios = require('axios');
-const nodeHtmlToImage = require('node-html-to-image')
-const htmlFile = fs.readFileSync("./template.html", "utf-8");
 
 const postImages = ({ redImage, blackImage }) => {
   const postData = {};
