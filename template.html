@@ -1,6 +1,8 @@
 <html>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+
     </head>
     <style>
         #app {
@@ -21,19 +23,23 @@
     </style>
     <body style="height: 528px; width: 880px; max-height: 528px; max-width: 880px;">
         <div id="app">
+
+
             <div class="last-updated">
                 Last updated: <span class="last-updated__value">{{ lastUpdated }}</span>
             </div>
             <div v-if="!isRed" style="margin-left: 200px;">
                 THIS IS NOT RED
                 {{ isRed }}
-                {{ kurwa }}
             </div>
             <div v-if="isRed">
                 THIS IS RED
                 {{ isRed }}
-                {{ kurwa }}
             </div>
+            <span v-if="weatherCast" class="weatherCast">
+
+                {{ weatherCast }}
+            </span>
         </div>
     </body>
 
@@ -42,11 +48,23 @@
       el: '#app',
       data() {
         return {
-            isRed: '{{ isRed }}' === 'true',
-            lastUpdated: '{{ lastUpdated }}'
+            isRed: false,
+            lastUpdated: '{{ lastUpdated }}',
+            weatherCast: null,
         }
       },
-
+      created() {
+          this.getWeatherCast()
+      },
+      methods: {
+          getWeatherCast() {
+            axios.get('http://api.openweathermap.org/data/2.5/onecall?lat=51.584870&lon=-0.280060&exclude=minutely&appid=811ade084421edfd4e2b8331ba00e291')
+                .then(res => {
+                    this.weatherCast = res.data;
+                console.log('🚀 ~ file: template.html ~ line 56 ~ getWeatherCast ~ res', res.data);
+                })
+          }
+      }
     })
 
     </script>
