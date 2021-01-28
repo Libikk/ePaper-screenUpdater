@@ -19,6 +19,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    'react/jsx-one-expression-per-line': 'off',
     'consistent-return': 'off',
     'no-await-in-loop': 'off',
     'import/no-extraneous-dependencies': 'off',

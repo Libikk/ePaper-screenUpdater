@@ -1,0 +1,9 @@
+.forecast {
+    max-width: 260px;
+    .forecast__day {
+        font-weight: bold;
+        font-size: 30px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
