@@ -9,11 +9,7 @@ const postImages = ({ redImage, blackImage }) => {
 
   return axios.post('http://192.168.0.161:9999/imagesUpload',postData )
   .then((res) => {
-    if (res.statusCode === 200) {
-      console.log('Update completed')
-    } else {
-      console.log('jakis kurwa error', res)
-    }
+    console.log('Update status:', res.data)
   })
   .catch(console.error);
 
@@ -23,11 +19,11 @@ const postImages = ({ redImage, blackImage }) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setViewport({ width: 880, height: 528 });
-    await page.goto('file://C:/Users/libik/Desktop/IT/repos/imagesGenerateFromHtml/template.html');
-    await page.evaluate(() => {
-      document.querySelector('body').classList.add('black')
-    });
-    await page.waitForSelector('.weatherCast');
+    await page.goto('file://C:/Users/libik/Desktop/IT/repos/imagesGenerateFromHtml/dist/index.html', {waitUntil: 'networkidle2'});
+    // await page.evaluate(() => {
+    //   document.querySelector('body').classList.add('black')
+    // });
+    // await page.waitForSelector('.KURWAMAC');
 
     await page.screenshot({ path: './blackImage.png'})
 
