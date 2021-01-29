@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import format from 'date-fns/format';
 import axios from 'axios';
 import '../styles/forecast.scss';
+import CurrentWeather from './CurrentWeather';
 
 const Forecast = () => {
   const [data, setData] = useState(null);
@@ -22,6 +23,7 @@ const Forecast = () => {
   const dailyForecast = data && data.daily.slice(0, 7);
   return (
     <div className="forecast">
+      <CurrentWeather data={data} />
       {
       dailyForecast && dailyForecast.map((day) => (
         <div key={day.dt} className="forecast__day">

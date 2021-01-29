@@ -15,7 +15,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 const copyPlugin = new CopyWebpackPlugin([
   {
     from: 'src/assets',
-    to: 'dist/',
+    to: 'assets/',
   },
 ]);
 
@@ -52,9 +52,6 @@ module.exports = (env, argv) => ({
         use: [
           {
             loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
           },
         ],
       },
