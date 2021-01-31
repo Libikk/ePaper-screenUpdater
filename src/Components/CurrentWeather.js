@@ -28,7 +28,7 @@ const CurrentWeather = (data) => {
       </div>
       <div className="current_sunrise-sunset">
         {getTime(current?.sunrise)}
-        <img src={`${assetsPath}/50d.png`} alt="kurwa" style={{ width: '40px', height: '40px' }} />
+        <img src={`${assetsPath}/50d.png`} alt="kurwa" />
         {getTime(current?.sunset)}
       </div>
     </div>
