@@ -1,4 +1,6 @@
 .current {
+    margin-bottom: 12px;
+
     .current_temp {
         font-weight: bold;
         font-size: 140px;
@@ -6,5 +8,8 @@
     .current_sunrise-sunset {
         text-align: center;
         font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

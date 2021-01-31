@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/currentWeather.scss';
 import format from 'date-fns/format';
+import { assetsPath } from '../rootDir';
 
 const CurrentWeather = (data) => {
   if (!data.data) return 1;
@@ -14,8 +15,15 @@ const CurrentWeather = (data) => {
       <div className="current_temp">
         {current?.temp.toFixed()}°
       </div>
+      <div className="current_additional-details">
+        <span />
+        <span>{current.wind_speed}m/s</span>
+        <span />
+      </div>
       <div className="current_sunrise-sunset">
-        {getTime(current?.sunrise)}  -  {getTime(current?.sunset)}
+        {getTime(current?.sunrise)}
+        <img src={`${assetsPath}/50d.png`} alt="kurwa" style={{ width: '30px', height: '30px' }} />
+        {getTime(current?.sunset)}
       </div>
     </div>
   );
