@@ -16,7 +16,7 @@ const CurrentWeather = (data) => {
       </div>
       <div className="current_additional-details">
         <div className="additional-details-element">
-          <span>{current.humidity}</span><img src={`${assetsPath}/humidity.png`} alt="kurwa" style={{ width: '30px', height: '30px' }} />
+          <span>{current.humidity}</span><img src={`${assetsPath}/humidity.png`} alt="kurwa" style={{ width: '26px', height: '26px' }} />
         </div>
         <div className="additional-details-element">
           <span>{Number(current.wind_speed).toFixed()}m/s</span><img src={`${assetsPath}/wind.png`} alt="kurwa" style={{ width: '30px', height: '30px' }} />
