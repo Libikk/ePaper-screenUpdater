@@ -15,6 +15,7 @@
         }
 
         .status__name {
+            min-width: 169px; // because of metline is longer LoL
             background: black;
             color: white;
             border: 2px black solid;
