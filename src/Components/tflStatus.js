@@ -20,6 +20,7 @@ const TflStatus = () => {
 
   return (
     <div className="tflstatuses">
+      <div className="tflstatuses-title">TFL Status</div>
       {
           statuses.map((singleStatus) => {
             const lineData = tflData.find(({ id }) => id === singleStatus.key);

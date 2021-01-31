@@ -3,6 +3,14 @@
     flex-direction: column;
     font-weight: bold;
     font-size: 30px;
+    .tflstatuses-title {
+        padding: 6px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        border-bottom: none;
+    }
     .tflstatuses__status {
         display: flex;
 
