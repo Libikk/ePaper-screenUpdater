@@ -1,10 +1,24 @@
 .current {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 
     .current_temp {
+        margin: -10px 0;
         font-weight: bold;
         font-size: 140px;
         text-align: center;
+    }
+    .current_additional-details {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+
+        .additional-details-element {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
     }
     .current_sunrise-sunset {
         text-align: center;

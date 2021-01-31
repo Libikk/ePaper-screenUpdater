@@ -1,5 +1,9 @@
 .forecast {
+    height: 100%;
+    padding: 0 10px;
     max-width: 250px;
+    border-right: 2px solid black;
+
     .forecast__day {
         font-weight: bold;
         font-size: 30px;

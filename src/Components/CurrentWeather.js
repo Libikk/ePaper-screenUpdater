@@ -8,7 +8,6 @@ const CurrentWeather = (data) => {
 
   const getTime = (date) => format(new Date(date * 1000), 'k:m');
   const current = data?.data?.current;
-  console.log('🚀 ~ file: CurrentWeather.js ~ line 10 ~ CurrentWeather ~ current', current);
 
   return (
     <div className="current">
@@ -16,13 +15,20 @@ const CurrentWeather = (data) => {
         {current?.temp.toFixed()}°
       </div>
       <div className="current_additional-details">
-        <span />
-        <span>{current.wind_speed}m/s</span>
-        <span />
+        <div className="additional-details-element">
+          <span>{current.humidity}</span><img src={`${assetsPath}/humidity.png`} alt="kurwa" style={{ width: '30px', height: '30px' }} />
+        </div>
+        <div className="additional-details-element">
+          <span>{Number(current.wind_speed).toFixed()}m/s</span><img src={`${assetsPath}/wind.png`} alt="kurwa" style={{ width: '30px', height: '30px' }} />
+        </div>
+
+        <div className="additional-details-element">
+          <span>{current.pressure}hPa</span>
+        </div>
       </div>
       <div className="current_sunrise-sunset">
         {getTime(current?.sunrise)}
-        <img src={`${assetsPath}/50d.png`} alt="kurwa" style={{ width: '30px', height: '30px' }} />
+        <img src={`${assetsPath}/50d.png`} alt="kurwa" style={{ width: '40px', height: '40px' }} />
         {getTime(current?.sunset)}
       </div>
     </div>
