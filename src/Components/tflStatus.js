@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/tflStatus.scss';
 import axios from 'axios';
+import { assetsPath } from '../rootDir';
 
 const TflStatus = () => {
   const [tflData, setTflData] = useState(null);
@@ -20,7 +21,9 @@ const TflStatus = () => {
 
   return (
     <div className="tflstatuses">
-      <div className="tflstatuses-title">TFL Status</div>
+      <div className="tflstatuses-title">
+        <img src={`${assetsPath}/TFL-logo.png`} alt="kurwa" />
+      </div>
       {
           statuses.map((singleStatus) => {
             const lineData = tflData.find(({ id }) => id === singleStatus.key);
