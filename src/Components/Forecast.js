@@ -3,6 +3,7 @@ import format from 'date-fns/format';
 import axios from 'axios';
 import '../styles/forecast.scss';
 import CurrentWeather from './CurrentWeather';
+import { assetsPath } from '../rootDir';
 
 const Forecast = () => {
   const [data, setData] = useState(null);
@@ -35,7 +36,7 @@ const Forecast = () => {
               <span>{day.temp.min.toFixed()}°</span> - <span>{day.temp.max.toFixed()}°</span>
             </span>
             <span style={{ marginLeft: '10px' }}>
-              <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`} alt={day.weather[0].icon} style={{ width: '30px', height: '30px' }} />
+              <img src={`${assetsPath}/${day.weather[0].icon}.png`} alt={day.weather[0].icon} style={{ width: '30px', height: '30px' }} />
             </span>
           </div>
         </div>
