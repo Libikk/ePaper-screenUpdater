@@ -1,9 +1,16 @@
 .forecast {
-    max-width: 260px;
+    max-width: 250px;
     .forecast__day {
         font-weight: bold;
         font-size: 30px;
+        align-items: center;
         display: flex;
         justify-content: space-between;
+
+        .day__right-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }

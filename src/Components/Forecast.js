@@ -28,16 +28,14 @@ const Forecast = () => {
       {
       dailyForecast && dailyForecast.map((day) => (
         <div key={day.dt} className="forecast__day">
-          <div className="day__left-section">
+          <span className="day__left-section">
             { getShortDayName(day.dt) }
-          </div>
+          </span>
           <div className="day__right-section">
-            <span style={{ marginLeft: '10px' }}>
+            <span style={{ padding: '0 10px' }}>
               <span>{day.temp.min.toFixed()}°</span> - <span>{day.temp.max.toFixed()}°</span>
             </span>
-            <span style={{ marginLeft: '10px' }}>
-              <img src={`${assetsPath}/${day.weather[0].icon}.png`} alt={day.weather[0].icon} style={{ width: '30px', height: '30px' }} />
-            </span>
+            <img src={`${assetsPath}/${day.weather[0].icon}.png`} alt={day.weather[0].icon} style={{ width: '40px', height: '40px' }} />
           </div>
         </div>
       ))
