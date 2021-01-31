@@ -1,0 +1,26 @@
+.tflstatuses {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 30px;
+    .tflstatuses__status {
+        display: flex;
+
+        .status__name, .status__description {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status__name {
+            background: black;
+            color: white;
+            border: 2px black solid;
+        }
+        .status__description {
+            border: 2px black solid;
+        }
+    }
+}
