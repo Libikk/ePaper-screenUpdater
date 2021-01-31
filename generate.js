@@ -18,7 +18,8 @@ const postImages = ({ redImage, blackImage }) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setViewport({ width: 880, height: 528 });
-  await page.goto('http://localhost:8080', { waitUntil: 'networkidle2' });
+  await page.goto('file://C:/Users/libik/Desktop/IT/repos/imagesGenerateFromHtml/dist/index.html', { waitUntil: 'networkidle2' });
+  // await page.goto('http://localhost:8080', { waitUntil: 'networkidle2' });
   // await page.evaluate(() => {
   //   document.querySelector('body').classList.add('black')
   // });
