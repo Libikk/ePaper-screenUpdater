@@ -11,6 +11,7 @@
         border: 2px solid black;
         border-left: none;
         img {
+            height: 46px;
             width: 200px;
         }
     }
@@ -43,7 +44,6 @@
         border-color: red;
         .tflstatuses-title img {
             width: 0px;
-            height: 46px;
         }
     }
 }
