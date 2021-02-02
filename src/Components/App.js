@@ -3,11 +3,24 @@ import './App.scss';
 import Forecast from './Forecast';
 import TflStatus from './tflStatus';
 
-const DemoComponent = () => (
-  <div className="rootContainer">
-    <Forecast />
-    <TflStatus />
-  </div>
-);
+const DemoComponent = () => {
+  const setCssVars = ({ red, black }) => {
+    const rootContainer = document.querySelector('.rootContainer');
+    rootContainer.classList[red ? 'add' : 'remove']('red');
+    rootContainer.classList[black ? 'add' : 'remove']('black');
+  };
+
+  return (
+    <div>
+      <div className="rootContainer red black">
+        <Forecast />
+        <TflStatus />
+      </div>
+      <button type="button" onClick={() => setCssVars({ red: true, black: false })}>red</button>
+      <button type="button" onClick={() => setCssVars({ red: false, black: true })}>black</button>
+      <button type="button" onClick={() => setCssVars({ red: false, black: false })}>both</button>
+    </div>
+  );
+};
 
 export default DemoComponent;

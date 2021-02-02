@@ -19,15 +19,17 @@ const postImages = ({ redImage, blackImage }) => {
   const page = await browser.newPage();
   await page.setViewport({ width: 880, height: 528 });
   await page.goto(`file://${__dirname}/dist/index.html`, { waitUntil: 'networkidle2' });
-  // await page.goto('http://localhost:8080', { waitUntil: 'networkidle2' });
-  // await page.evaluate(() => {
-  //   document.querySelector('body').classList.add('black')
-  // });
-  // await page.waitForSelector('.KURWAMAC');
-
-  await page.screenshot({ path: './blackImage.png' });
-
+  await page.goto('http://localhost:8080', { waitUntil: 'networkidle2' });
+  await page.evaluate(async () => {
+    document.querySelector('.rootContainer').classList.remove('black');
+  });
   await page.screenshot({ path: './redImage.png' });
+
+  await page.evaluate(async () => {
+    document.querySelector('.rootContainer').classList.remove('red');
+    document.querySelector('.rootContainer').classList.add('black');
+  });
+  await page.screenshot({ path: './blackImage.png' });
 
   await browser.close();
 

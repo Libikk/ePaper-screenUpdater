@@ -18,3 +18,14 @@
         }
     }
 }
+
+
+.red {
+    .forecast {
+        color: white;
+        border-color: white;
+        img {
+            display: none;
+        }
+    }
+}
