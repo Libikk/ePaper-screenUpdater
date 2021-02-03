@@ -19,7 +19,7 @@ const postImages = ({ redImage, blackImage }) => {
   const page = await browser.newPage();
   await page.setViewport({ width: 880, height: 528 });
   await page.goto(`file://${__dirname}/dist/index.html`, { waitUntil: 'networkidle2' });
-  await page.goto('http://localhost:8080', { waitUntil: 'networkidle2' });
+  // await page.goto('http://localhost:8080', { waitUntil: 'networkidle2' });
   await page.evaluate(async () => {
     document.querySelector('.rootContainer').classList.add('red');
     document.querySelector('.rootContainer').classList.remove('black');
