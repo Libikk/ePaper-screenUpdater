@@ -6,7 +6,7 @@ const postImages = ({ redImage, blackImage }) => {
   const postData = {};
   if (redImage) postData.redImage = `data:image/png;base64,${redImage}`;
   if (blackImage) postData.blackImage = `data:image/png;base64,${blackImage}`;
-
+  console.log('Start uploading');
   return axios.post('http://192.168.0.161:9999/imagesUpload', postData)
     .then((res) => {
       console.log('Update status:', res.data);
