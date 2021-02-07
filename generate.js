@@ -15,7 +15,7 @@ const postImages = ({ redImage, blackImage }) => {
 };
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
   const page = await browser.newPage();
   await page.setViewport({ width: 880, height: 528 });
   await page.goto(`file://${__dirname}/dist/index.html`, { waitUntil: 'networkidle2' });
