@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/lastUpdate.scss';
+import { assetsPath } from '../rootDir';
 
 const LastUpdate = () => (
   <div className="last-update">
@@ -7,6 +8,9 @@ const LastUpdate = () => (
     <span>
       {new Date().toLocaleString()}
     </span>
+    <div>
+      <img src={`${assetsPath}/heart.png`} style={{ marginTop: '150px', width: '210px' }} alt="kurwa" />
+    </div>
   </div>
 );
 
