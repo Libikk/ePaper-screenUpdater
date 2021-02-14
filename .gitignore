@@ -2,3 +2,4 @@ node_modules
 dist
 blackImage.png
 redImage.png
+updateRpiScript.sh
