@@ -6,7 +6,8 @@
   "scripts": {
     "dev": " webpack-dev-server --open --mode development --hot",
     "build": " webpack --mode production",
-    "generate": "npm run build && node ./generate.js"
+    "generate": "npm run build && node ./generate.js",
+    "updatePi": "sh ./updateRpiScript.sh"
   },
   "keywords": [],
   "author": "",
