@@ -3,6 +3,7 @@ import './App.scss';
 import Forecast from './Forecast';
 import TflStatus from './tflStatus';
 import LastUpdate from './LastUpdate';
+import HomeAssistant from './HomeAssistant';
 
 const DemoComponent = () => {
   const setCssVars = ({ red, black }) => {
@@ -17,6 +18,7 @@ const DemoComponent = () => {
         <Forecast />
         <TflStatus />
         <LastUpdate />
+        <HomeAssistant />
       </div>
       <button type="button" onClick={() => setCssVars({ red: true, black: false })}>red</button>
       <button type="button" onClick={() => setCssVars({ red: false, black: true })}>black</button>

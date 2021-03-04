@@ -1,6 +1,8 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+require('dotenv').config();
 
 const miniCssPlugin = new MiniCssExtractPlugin({
   filename: '[name].[hash].css',
@@ -18,6 +20,14 @@ const copyPlugin = new CopyWebpackPlugin([
     to: 'assets/',
   },
 ]);
+
+const envs = new webpack.DefinePlugin({
+  process: {
+    env: {
+      HOME_ASSISTANT_TOKEN: `'${process.env.HOME_ASSISTANT_TOKEN}'`,
+    },
+  },
+});
 
 module.exports = (env, argv) => ({
   optimization: {
@@ -73,5 +83,5 @@ module.exports = (env, argv) => ({
       },
     ],
   },
-  plugins: [htmlPlugin, miniCssPlugin, copyPlugin],
+  plugins: [htmlPlugin, miniCssPlugin, copyPlugin, envs],
 });
