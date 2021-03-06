@@ -15,7 +15,12 @@ const postImages = ({ redImage, blackImage }) => {
 };
 
 (async () => {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+  // installation
+  // https://samiprogramming.medium.com/puppeteer-on-raspbian-nodejs-3425ccea470e
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: '/usr/bin/chromium-browser',
+  });
   const page = await browser.newPage();
   await page.setViewport({ width: 880, height: 528 });
   await page.goto(`file://${__dirname}/dist/index.html`, { waitUntil: 'networkidle2' });
