@@ -1,0 +1,10 @@
+.home-assistant-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    .thermometer__percent-current {
+        font-size: 30px;
+    }
+}

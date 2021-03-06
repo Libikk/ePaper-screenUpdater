@@ -50,6 +50,7 @@
     "jimp": "^0.16.1",
     "puppeteer": "^5.5.0",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "react-thermometer-component": "^1.0.1"
   }
 }
