@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Thermometer from 'react-thermometer-component';
 import '../styles/homeAssistant.scss';
+import { assetsPath } from '../rootDir';
 
 const headers = {
   Authorization: `Bearer ${process.env.HOME_ASSISTANT_TOKEN}`,
@@ -29,7 +30,7 @@ const HomeAssistant = () => {
   return (
     <div className="home-assistant-container">
       <p>
-        {currentRoomHumidity}%
+        <span>{currentRoomHumidity}</span><img src={`${assetsPath}/humidity.png`} alt="kurwa" style={{ width: '40px', height: '40px' }} />
       </p>
       <Thermometer
         theme="light"
