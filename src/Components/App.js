@@ -4,7 +4,7 @@ import Forecast from './Forecast';
 import TflStatus from './tflStatus';
 import LastUpdate from './LastUpdate';
 import HomeAssistant from './HomeAssistant';
-
+console.log(process.env, process.env.TEST, process.env.HOME_ASSISTANT)
 const DemoComponent = () => {
   const setCssVars = ({ red, black }) => {
     const rootContainer = document.querySelector('.rootContainer');
