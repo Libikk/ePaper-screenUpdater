@@ -7,7 +7,6 @@ const CREDENTIALS = {
     private_key: JSON.parse(`"${process.env.PRIVATE_KEY}"`)
 }
   
-const calendarId = process.env.CALENDAR_ID;
 const SCOPES = 'https://www.googleapis.com/auth/calendar';
 const calendar = google.calendar({version : "v3"});
 
@@ -18,12 +17,17 @@ const auth = new google.auth.JWT(
     SCOPES
 );
 
-const getEvents = async (dateTimeStart, dateTimeEnd) => {
+const calendars = [
+    { id: process.env.CALENDAR_ID_EPAPER, outputFileName: 'ePaperCalendarEvents.json' },
+    { id: process.env.CALENDAR_ID_BANK_HOLIDAYS_GOV, outputFileName: 'bankHolidaysCalendarEvents.json' }
+]
+
+const getEvents = async (dateTimeStart, dateTimeEnd, calendarId) => {
 
     try {
         const response = await calendar.events.list({
             auth: auth,
-            calendarId: calendarId,
+            calendarId,
             timeMin: dateTimeStart,
             timeMax: dateTimeEnd,
         });
@@ -38,13 +42,15 @@ const getEvents = async (dateTimeStart, dateTimeEnd) => {
 
 
 const getAllEvents = async (start, end) => {
-    try {
-        const res = await getEvents(start, end);
-        await fs.writeFile('./calendarEvents.json', JSON.stringify(res, null, 4))
-        console.log(res)
-    } catch (error) {
-        console.log(error);
-    }
+    calendars.forEach(async (calendar) => {
+        try {
+            const res = await getEvents(start, end, calendar.id);
+            await fs.writeFile(`./src/data/${calendar.outputFileName}`, JSON.stringify(res, null, 4))
+            console.log(res)
+        } catch (error) {
+            console.log(error);
+        }
+    })
 }
 
 

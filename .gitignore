@@ -22,4 +22,5 @@ blackImage.png
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-calendarEvents.json
+src/data/ePaperCalendarEvents.json
+src/data/bankHolidaysCalendarEvents.json

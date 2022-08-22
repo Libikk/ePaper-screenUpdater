@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Forecast from './Forecast';
-import TflStatus from './tflStatus';
+import TflStatus from './Calendar';
 import LastUpdate from './LastUpdate';
 import HomeAssistant from './HomeAssistant';
 console.log(process.env, process.env.TEST, process.env.HOME_ASSISTANT)
