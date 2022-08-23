@@ -1,20 +1,6 @@
 const puppeteer = require("puppeteer");
-const fs = require("fs");
 const Jimp = require("jimp");
-const axios = require("axios");
 const path = "../e-Paper/RaspberryPi_JetsonNano/python/myImages";
-const postImages = ({ redImage, blackImage }) => {
-  const postData = {};
-  if (redImage) postData.redImage = `data:image/png;base64,${redImage}`;
-  if (blackImage) postData.blackImage = `data:image/png;base64,${blackImage}`;
-  console.log("Start uploading");
-  return axios
-    .post("http://192.168.0.161:9999/imagesUpload", postData)
-    .then((res) => {
-      console.log("Update status:", res.data);
-    })
-    .catch(console.error);
-};
 
 (async () => {
   // installation
@@ -43,16 +29,16 @@ const postImages = ({ redImage, blackImage }) => {
 
   await browser.close();
 
-  await Jimp.read("./blackImage.png", (err, lenna) => {
+  // todo resolve this crap
+  Jimp.read("./redImage.png", (err, lenna) => {
     if (err) throw err;
-    console.log("Black image generated");
-    lenna.write(`${path}/blackImage.bmp`); // save
-  });
-  await Jimp.read("./redImage.png", (err, lenna) => {
-    if (err) throw err;
-    console.log("Red image generated");
-    lenna.write(`${path}/redImage.bmp`); // save
+    return lenna.writeAsync(`${path}/redImage.bmp`); // save
   });
 
-  // return postImages({ redImage: base64RedImage, blackImage: base64BlackImage });
+  Jimp.read("./blackImage.png", (err, lenna) => {
+    if (err) throw err;
+    return lenna.writeAsync(`${path}/blackImage.bmp`); // save
+  });
+  await new Promise((r) => setTimeout(r, 5000));
+  // todo resolve this crap
 })();

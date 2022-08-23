@@ -44,7 +44,7 @@ const Calendar = () => {
               <div className='day'>
                 {isToday(day) ? 
                 <span className='today'>Today<span className='today-date'>{format(day, 'do')}</span></span> : 
-                format(day, 'do LLL MM yyyy')}
+                format(day, 'do LLL yyyy')}
               </div>
               <div className='event-container'>
                 {events.map(event => 
