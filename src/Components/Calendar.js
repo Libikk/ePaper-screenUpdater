@@ -1,40 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/tflStatus.scss';
+import '../styles/calendar.scss';
 import bankHolidaysCalendarEvents from '../data/bankHolidaysCalendarEvents.json' 
 import ePaperCalendarEvents from '../data/ePaperCalendarEvents.json' 
 import { getDatesInRange, removeSameDateDuplicates } from '../utils';
+import { format, isSameDay, isToday } from 'date-fns';
 
-const calendarEvents = [...bankHolidaysCalendarEvents, ...ePaperCalendarEvents]
-.sort((a,b) => new Date(b.start.date) - new Date(a.start.date));
+const removeCalendarEventsDuplications = (calendarEvents) => {
+  const calendarEventsWithoutDuplicates = calendarEvents.reduce((acc, event) => {
+    const isSameSummary = acc.find(({ summary }) => summary === event.summary);
+    if (!isSameSummary) return [...acc, event]
+    return acc;
+  }, [])
+  return calendarEventsWithoutDuplicates;
+}
 
-var days = calendarEvents.reduce((acc, event) => {
+const calendarEvents = removeCalendarEventsDuplications([...bankHolidaysCalendarEvents, ...ePaperCalendarEvents])
+.sort((a,b) => new Date(b.start.date) - new Date(a.start.date))
+
+
+var days = removeSameDateDuplicates(calendarEvents.reduce((acc, event) => {
   const { start, end } = event;
   const dates = getDatesInRange(new Date(start.date || start.dateTime), new Date(end.date || end.dateTime));
   return [...acc, ...dates];
-},[])
-console.log("🚀 ~ file: Calendar.js ~ line 15 ~ days ~ days", removeSameDateDuplicates(days))
-console.log("🚀 ~ file: Calendar.js ~ line 8 ~ calendarEvents", calendarEvents.map(({ start, end }) => ({ start: start.date || start.dateTime, end: end.date || end.dateTime })))
-console.log("🚀 ~ file: Calendar.js ~ line 17 ~ calendarEvents", calendarEvents)
+},[])).sort((a,b) => new Date(b) - new Date(a)).reverse();
 
-
-// assign each date to an array of events
+const daysWithEvents = days.map(day => {
+  const events = calendarEvents.filter(({ start, end }) => {
+    const startDate = new Date(start.date || start.dateTime);
+    const endDate = new Date(end.date || end.dateTime);
+    return (startDate <= day && endDate >= day) || (isSameDay(day, startDate) || isSameDay(day, endDate));
+  } );
+  return { day, events };
+})
 
 const Calendar = () => {
 
 
   return (
-    <div className="tflstatuses">
+    <div className="container">
       {
-          // statuses.map((singleStatus) => {
-          //   const lineData = tflData.find(({ id }) => id === singleStatus.key);
-          //   const statusDescription = lineData.lineStatuses[0].statusSeverityDescription;
-          //   return (
-          //     <div className="tflstatuses__status" key={singleStatus.key}>
-          //       <div className="status__name">{lineData.name}</div>
-          //       <div className="status__description">{statusDescription}</div>
-          //     </div>
-          //   );
-          // })
+        daysWithEvents.map(({ day, events }) => (
+          <div key={day} className="day-container">
+              <div className='day'>
+                {isToday(day) ? 
+                <span className='today'>Today<span className='today-date'>{format(day, 'do')}</span></span> : 
+                format(day, 'do LLL MM yyyy')}
+              </div>
+              <div className='event-container'>
+                {events.map(event => 
+                <div className='event'>{event.summary} 
+                  {event.start.dateTime && <span> at <span className='event-time'>{format(new Date(event.start.dateTime), 'H:mm')}</span></span>}
+                </div>)}
+              </div>
+            </div>
+        ))
       }
     </div>
   );
