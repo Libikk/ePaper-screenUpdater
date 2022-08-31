@@ -23,13 +23,16 @@ const calendars = [
 ]
 
 const getEvents = async (dateTimeStart, dateTimeEnd, calendarId) => {
+console.log("🚀 ~ file: getCalendarData.js ~ line 26 ~ getEvents ~ dateTimeStart", dateTimeStart)
 
     try {
         const response = await calendar.events.list({
+            
             auth: auth,
             calendarId,
-            timeMin: dateTimeStart,
-            timeMax: dateTimeEnd,
+            maxResults: 99,
+            dateTimeStart: '2022-05-14T17:00:00.0000000',
+            dateTimeEnd: '2023-05-14T17:00:00.0000000',
         });
     
         const items = response['data']['items'];
@@ -46,7 +49,7 @@ const getAllEvents = async (start, end) => {
         try {
             const res = await getEvents(start, end, calendar.id);
             await fs.writeFile(`./src/data/${calendar.outputFileName}`, JSON.stringify(res, null, 4))
-            console.log(res)
+            res.forEach((event) => console.log(event.summary, event.start.date));
         } catch (error) {
             console.log(error);
         }

@@ -6,7 +6,7 @@ import { assetsPath } from '../rootDir';
 const CurrentWeather = (data) => {
   if (!data.data) return 1;
 
-  const getTime = (date) => format(new Date(date * 1000), 'k:m');
+  const getTime = (date) => format(new Date(date * 1000), 'kk:mm');
   const current = data?.data?.current;
 
   return (
