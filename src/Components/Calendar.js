@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../styles/calendar.scss';
 import bankHolidaysCalendarEvents from '../data/bankHolidaysCalendarEvents.json' 
 import ePaperCalendarEvents from '../data/ePaperCalendarEvents.json' 
 import { getDatesInRange, removeSameDateDuplicates } from '../utils';
-import { format, isSameDay, isToday } from 'date-fns';
+import { format, isBefore, isSameDay, isToday } from 'date-fns';
 
 const removeCalendarEventsDuplications = (calendarEvents) => {
   const calendarEventsWithoutDuplicates = calendarEvents.reduce((acc, event) => {
@@ -12,6 +12,12 @@ const removeCalendarEventsDuplications = (calendarEvents) => {
     return acc;
   }, [])
   return calendarEventsWithoutDuplicates;
+}
+
+const getEventsFromToday = (calendarEvents) => {
+  const today = new Date();
+  const eventsFromToday = calendarEvents.filter(({ day }) =>  isBefore(today, day));
+  return eventsFromToday;
 }
 
 const calendarEvents = removeCalendarEventsDuplications([...bankHolidaysCalendarEvents, ...ePaperCalendarEvents])
@@ -24,14 +30,15 @@ var days = removeSameDateDuplicates(calendarEvents.reduce((acc, event) => {
   return [...acc, ...dates];
 },[])).sort((a,b) => new Date(b) - new Date(a)).reverse();
 
-const daysWithEvents = days.map(day => {
+const daysWithEvents = getEventsFromToday(days.map(day => {
   const events = calendarEvents.filter(({ start, end }) => {
     const startDate = new Date(start.date || start.dateTime);
     const endDate = new Date(end.date || end.dateTime);
     return (startDate <= day && endDate >= day) || (isSameDay(day, startDate) || isSameDay(day, endDate));
   } );
   return { day, events };
-})
+}))
+console.log("🚀 ~ file: Calendar.js ~ line 43 ~ daysWithEvents ~ daysWithEvents", daysWithEvents)
 
 const Calendar = () => {
 
@@ -53,7 +60,7 @@ const Calendar = () => {
               </div>
               <div className='event-container'>
                 {events.map(event => 
-                <div className='event'>{event.summary} 
+                <div className='event' key={event.summary}>{event.summary} 
                   {event.start.dateTime && <span> at <span className='event-time'>{format(new Date(event.start.dateTime), 'H:mm')}</span></span>}
                 </div>)}
               </div>
