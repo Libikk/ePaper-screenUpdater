@@ -30,17 +30,11 @@ const HomeAssistant = () => {
   return (
     <div className="home-assistant-container">
       <p>
-        <span>{currentRoomHumidity}</span><img src={`${assetsPath}/humidity.png`} alt="kurwa" style={{ width: '40px', height: '40px' }} />
+        <span>humidity: {currentRoomHumidity}</span><img src={`${assetsPath}/humidity.png`} alt="kurwa" style={{ width: '40px', height: '40px' }} />
       </p>
-      <Thermometer
-        theme="light"
-        value={currentRoomTemp}
-        max="40"
-        steps="4"
-        format="°C"
-        size="large"
-        height="400"
-      />
+      <p>
+        <span>temp: {currentRoomTemp}</span>
+      </p>
     </div>
   );
 };
