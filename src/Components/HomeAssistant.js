@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Thermometer from 'react-thermometer-component';
 import '../styles/homeAssistant.scss';
 import { assetsPath } from '../rootDir';
 
