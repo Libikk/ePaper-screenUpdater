@@ -4,6 +4,8 @@ import Forecast from './Forecast';
 import TflStatus from './Calendar';
 import LastUpdate from './LastUpdate';
 import HomeAssistant from './HomeAssistant';
+import WeddingCountdown from './WeddingCountdown';
+
 console.log(process.env, process.env.TEST, process.env.HOME_ASSISTANT)
 const DemoComponent = () => {
   const setCssVars = ({ red, black }) => {
@@ -18,7 +20,10 @@ const DemoComponent = () => {
         <Forecast />
         <TflStatus />
         <LastUpdate />
-        <HomeAssistant />
+        <div>
+          <WeddingCountdown />
+          <HomeAssistant />
+        </div>
       </div>
       <button type="button" onClick={() => setCssVars({ red: true, black: false })}>red</button>
       <button type="button" onClick={() => setCssVars({ red: false, black: true })}>black</button>
