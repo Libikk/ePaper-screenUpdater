@@ -8,46 +8,90 @@ const headers = {
 };
 const homeAssistantUrl = process.env.REACT_APP_HOME_ASSISTANT_URL;
 const HomeAssistant = () => {
-  const [currentRoomTemp, setCurrentRoomTemp] = useState(null);
-  const [currentRoomHumidity, setCurrentRoomHumidity] = useState(null);
-  const getTemp = () => {
-    axios
-      .get(`${homeAssistantUrl}/api/states/sensor.kitchen_temperature_2`, {
-        headers,
-      })
-      .then(({ data }) => {
-        setCurrentRoomTemp(Number(data.state).toFixed());
-      })
-      .catch(console.error);
+  const [temps, setTemps] = useState([]);
 
-    axios
-      .get(`${homeAssistantUrl}/api/states/sensor.kitchen_humidity_2`, {
+  const getValue = async (key) => {
+    return axios
+      .get(`${homeAssistantUrl}/api/states/sensor.${key}`, {
         headers,
-        mode: "no-cors",
       })
       .then(({ data }) => {
-        setCurrentRoomHumidity(data.state);
-      })
-      .catch(console.error);
+        return data.state;
+      });
   };
   useEffect(() => {
-    getTemp();
+    const getTemps = async () => {
+      const temps = await Promise.all(
+        tempsConfig.map(async (config) => {
+          const temperatureValue = await getValue(config.temperatureKey);
+          const humidityValue = await getValue(config.humidityKey);
+          return {
+            ...config,
+            temperatureValue,
+            humidityValue,
+          };
+        })
+      ).catch((err) => console.error(err));
+      setTemps(temps);
+    };
+    getTemps();
   });
+  const sortedTemperaturesByTemperature = temps.sort(
+    (a, b) => a.temperatureValue - b.temperatureValue
+  );
   return (
     <div className="home-assistant-container">
-      <p>
-        <span>humidity: {currentRoomHumidity}</span>
-        <img
-          src={`${assetsPath}/humidity.png`}
-          alt="kurwa"
-          style={{ width: "40px", height: "40px" }}
-        />
-      </p>
-      <p>
-        <span>temp: {currentRoomTemp}</span>
-      </p>
+      {sortedTemperaturesByTemperature.map((temp) => (
+        <div key={temp.label} className="home-assistant-temperature">
+          <div className="home-assistant-temperature__label">{temp.label}</div>
+          <div className="home-assistant-temperature__value">
+            {Number(temp.temperatureValue) ? `${temp.temperatureValue}°C` : "-"}
+          </div>
+          <div className="home-assistant-temperature__value">
+            {Number(temp.humidityValue) ? `${temp.humidityValue}%` : "-"}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
 
 export default HomeAssistant;
+
+const tempsConfig = [
+  {
+    label: "Bedroom",
+    temperatureKey: "bedroom_temperature",
+    temperatureValue: "",
+    humidityKey: "bedroom_humidity",
+    humidityValue: "",
+  },
+  {
+    label: "Kitchen",
+    temperatureKey: "kitchen_temperature_2",
+    temperatureValue: "",
+    humidityKey: "kitchen_humidity_2",
+    humidityValue: "",
+  },
+  {
+    label: "Loft",
+    temperatureKey: "loft_temperature",
+    temperatureValue: "",
+    humidityKey: "loft_humidity",
+    humidityValue: "",
+  },
+  {
+    label: "Bathroom",
+    temperatureKey: "bathroom_temperature",
+    temperatureValue: "",
+    humidityKey: "bathroom_humidity",
+    humidityValue: "",
+  },
+  {
+    label: "Garden room",
+    temperatureKey: "garden_room_temperature",
+    temperatureValue: "",
+    humidityKey: "garden_room_humidity",
+    humidityValue: "",
+  },
+];

@@ -1,15 +1,13 @@
 .home-assistant-container {
-    // display: flex;
-    display: none;// temporary 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 30px;
-    .thermometer__percent-current {
-        font-size: 30px;
-    }
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 219px;
 
-// .red .home-assistant-container {
-//     display: none;
-// }
+  .home-assistant-temperature {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: 100px 60px 31px;
+  }
+}
